@@ -1,5 +1,3 @@
-# Library_OOP
-
 project opdracht voor Object Oriented Programming AP '24
 
 # Book Library Application
