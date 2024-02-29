@@ -2,83 +2,84 @@
 
 project opdracht voor Object Oriented Programming AP '24
 
-# Boekenbibliotheek Applicatie
+# Book Library Application
 
-## Overzicht
+## Overview
 
-Deze C# console applicatie simuleert een bibliotheeksysteem waar gebruikers boeken kunnen toevoegen, verwijderen, zoeken en bekijken. Het project maakt gebruik van objectgeoriënteerd programmeren principes, met de klassen `Book` en `Library` als kernonderdelen van de applicatie.
+This C# console application simulates a library system where users can add, remove, search, and view books. The project leverages object-oriented programming principles, with the `Book` and `Library` classes as the core components of the application.
 
-## Klasse: Book
+## Class: Book
 
-### Eigenschappen
+### Properties
 
-De `Book` klasse bevat de volgende eigenschappen:
+The `Book` class includes the following properties:
 
-- ISBN-nummer (String): Uniek identificatienummer voor het boek.
-- Titel (String): De titel van het boek.
-- Auteur (String): De naam van de auteur van het boek.
-- Genre (Enumeration): Het genre van het boek, gedefinieerd door een enum met vooraf bepaalde waarden zoals Fictie, Non-Fictie, Wetenschap, enz.
-- Publicatiejaar (Integer): Het jaar waarin het boek is gepubliceerd.
-- Aantal Pagina's (Integer): Het aantal pagina's in het boek.
-- Taal (String): De taal waarin het boek is geschreven.
-- Uitgever (String): De uitgever van het boek.
+- ISBN Number (String): A unique identifier for the book.
+- Title (String): The title of the book.
+- Author (String): The name of the book's author.
+- Genre (Enumeration): The genre of the book, defined by an enum with predefined values such as Fiction, Non-Fiction, Science, etc.
+- Publication Year (Integer): The year the book was published.
+- Page Count (Integer): The number of pages in the book.
+- Language (String): The language in which the book is written.
+- Publisher (String): The publisher of the book.
 
-### Controles
+### Validations
 
-Bij het toewijzen van waarden aan de eigenschappen van een boek worden de volgende controles uitgevoerd:
+The following validations are performed when assigning values to a book's properties:
 
-- De titel van een boek mag niet leeg zijn.
-- Het ISBN-nummer moet een geldige format hebben.
-- Het publicatiejaar moet in het verleden liggen.
-- Het aantal pagina's moet positief zijn.
-
-### Constructor
-
-De constructor vereist de titel, auteur, en een referentie naar een `Library` object.
-
-### Methoden
-
-- `ToonInfo()`: Toont alle informatie van het boek op een duidelijke manier.
-- `DeserializeerVanCSV(string csvBestand)`: Leest een lijst van boeken uit een CSV-bestand en voegt deze toe aan de bibliotheek.
-
-## Klasse: Library
-
-### Eigenschappen
-
-- Naam (String): De naam van de bibliotheek.
-- Boeken (List<Book>): Een lijst met alle boeken in de bibliotheek.
+- The book's title cannot be empty.
+- The ISBN number must have a valid format.
+- The publication year must be in the past.
+- The page count must be positive.
 
 ### Constructor
 
-Maakt een nieuwe bibliotheek met een specifieke naam.
+The constructor requires the title, author, and a reference to a `Library` object.
 
-### Methoden
+### Methods
 
-- `VoegBoekToe(Book boek)`: Voegt een nieuw boek toe aan de bibliotheek.
-- `VerwijderBoek(string ISBN)`: Verwijdert een boek op basis van het ISBN-nummer.
-- `ZoekBoekTitelAuteur(string titel, string auteur)`: Zoekt naar een boek op basis van titel en auteur.
-- `ZoekBoekISBN(string ISBN)`: Zoekt naar een boek op basis van het ISBN-nummer.
-- `ZoekBoekenAuteur(string auteur)`: Geeft een lijst van boeken van een specifieke auteur.
-- `ZoekBoekenEigenschap()`: Zoekt naar boeken die voldoen aan een specifieke eigenschapswaarde.
+- `ShowInfo()`: Displays all the information of the book in a clear manner.
+- `DeserializeFromCSV(string csvFile)`: Reads a list of books from a CSV file and adds them to the library.
+
+## Class: Library
+
+### Properties
+
+- Name (String): The name of the library.
+- Books (List<Book>): A list of all the books in the library.
+
+### Constructor
+
+Creates a new library with a specified name.
+
+### Methods
+
+- `AddBook(Book book)`: Adds a new book to the library.
+- `RemoveBook(string ISBN)`: Removes a book based on the ISBN number.
+- `SearchBookByTitleAuthor(string title, string author)`: Searches for a book based on title and author.
+- `SearchBookByISBN(string ISBN)`: Searches for a book based on its ISBN number.
+- `SearchBooksByAuthor(string author)`: Returns a list of books by a specific author.
+- `SearchBooksByProperty()`: Searches for books that meet a specific property value.
 
 ## Menu
 
-Bij het starten van de applicatie wordt eerst een nieuwe `Library` aangemaakt. Vervolgens wordt een keuzemenu weergegeven waarmee de gebruiker verschillende acties kan uitvoeren:
+Upon starting the application, a new `Library` is created first. Then, a menu is displayed allowing the user to perform various actions:
 
-1. Een boek toevoegen aan de bibliotheek.
-2. Informatie aan een boek toevoegen.
-3. Alle informatie van een boek tonen.
-4. Een boek opzoeken.
-5. Een boek verwijderen uit de bibliotheek.
-6. Alle boeken tonen uit de bibliotheek.
+1. Add a book to the library.
+2. Add information to a book.
+3. Show all information of a book.
+4. Search for a book.
+5. Remove a book from the library.
+6. Show all books in the library.
 
-De applicatie blijft in het menu tot de gebruiker kiest om te stoppen.
+The application remains in the menu until the user chooses to exit.
 
-## CSV Bestandsformaat
+## CSV File Format
 
-Voor het deserialiseren van boeken uit een CSV-bestand, moet het bestand de volgende kolommen bevatten: ISBN, Titel, Auteur, Genre, Publicatiejaar, Aantal Pagina's, Taal, Uitgever.
+For deserializing books from a CSV file, the file should include the following columns: ISBN, Title, Author, Genre, Publication Year, Page Count, Language, Publisher.
 
 ---
 
-Dit `README.md` bestand biedt een overzicht van de functies en structuur van de Boekenbibliotheek applicatie. Pas de inhoud aan op basis van de specifieke details en vereisten van je project.
+## Developed by:
 
+Jesus O'Bulan
