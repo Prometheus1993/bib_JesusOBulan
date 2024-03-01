@@ -1,6 +1,7 @@
 using System;
 
 
+
 /// Represents a library.
 public class Library
 {
@@ -55,7 +56,7 @@ public class Library
         }
         else
         {
-            Console.WriteLine("Book found:");
+            System.Console.WriteLine("Book found:");
             books.Remove(bookToRemove);
         }
     }
@@ -70,7 +71,7 @@ public class Library
 
         if (searchByTitleAuthor != null)
         {
-            Console.WriteLine("Book found:");
+            System.Console.WriteLine("Book found:");
             searchByTitleAuthor.ShowInfo();
         }
         else
@@ -88,12 +89,12 @@ public class Library
 
         if (searchBookByIsbn != null)
         {
-            Console.WriteLine("Book found:");
+            System.Console.WriteLine("Book found:");
             searchBookByIsbn.ShowInfo();
         }
         else
         {
-            Console.WriteLine("book not found");
+            System.Console.WriteLine("book not found");
         }
     }
 
@@ -106,12 +107,27 @@ public class Library
 
         if (searchBookByAuthor != null)
         {
-            Console.WriteLine("Book found:");
+            System.Console.WriteLine("Book found:");
             searchBookByAuthor.ShowInfo();
         }
         else
         {
-            Console.WriteLine("book not found");
+            System.Console.WriteLine("book not found");
+        }
+    }
+
+    public void SearchBooksByPublisher(string publisher)
+    {
+        Book searchBooksByPublisher = (Book)books.Where(book => book.Publisher == publisher);
+
+        if (searchBooksByPublisher != null)
+        {
+            System.Console.WriteLine("Book(s) found:");
+            searchBooksByPublisher.ShowInfo();
+        }
+        else
+        {
+            System.Console.WriteLine("book(s) not found");
         }
     }
 }
