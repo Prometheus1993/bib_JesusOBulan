@@ -15,7 +15,7 @@ public class Book
         get { return isbnNumber; }
         set
         {
-            if (value?.All(char.IsDigit) == true && value?.Length == 13)
+            if (value.All(char.IsDigit) == true && value?.Length == 13)
             {
                 isbnNumber = value;
             }
@@ -189,7 +189,7 @@ public void ShowInfo()
 /// </summary>
 /// <param name="filePath">The file path of the CSV to load books from.</param>
 /// <returns>A list of Book objects loaded from the CSV file.</returns>
-public static List<Book> LoadBooksFromCsv(string filePath)
+public static List<Book> DeserializeFromCSV(string filePath)
 {
     List<Book> books = new List<Book>();
     // Read all lines from the CSV file
