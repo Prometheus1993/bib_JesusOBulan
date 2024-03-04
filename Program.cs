@@ -1,4 +1,5 @@
-﻿// Purpose: Main program file for the Library project.
+﻿
+// Purpose: Main program file for the Library project.
 namespace Library
 {
     public class Program
@@ -13,6 +14,15 @@ namespace Library
             Searchbook searchBook = new(myLibrary);
             RemoveBook removeBook = new(myLibrary);
             ShowAllBooks showAllBooks = new(myLibrary);
+
+            string filePath = "csv/books.csv";
+
+            List<Book> booksFromCsv = Book.DeserializeFromCSV(filePath);
+
+            foreach (var book in booksFromCsv)
+            {
+                myLibrary.AddBook(book);
+            }
 
 
             while (true)

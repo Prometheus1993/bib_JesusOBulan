@@ -158,7 +158,8 @@ namespace Library
             System.Console.WriteLine($"ISBN: {IsbnNumber}");
 
             // Print the library associated with the book (if applicable)
-            System.Console.WriteLine($"Library: {Library.Name}\n");
+            System.Console.WriteLine($"Library: {Library?.Name ?? "Unknown"}\n");
+
         }
 
         /// <summary>
@@ -169,7 +170,7 @@ namespace Library
         public static List<Book> DeserializeFromCSV(string filePath)
         {
             List<Book> books = new List<Book>();
-            // Read all lines from the CSV file
+
             string[] lines = File.ReadAllLines(filePath);
 
             // Skip the first line assuming it's a header and parse each line
@@ -187,6 +188,7 @@ namespace Library
                     fields[5], // language
                     int.Parse(fields[6]), // page count
                     fields[7]); // ISBN number;
+
                 books.Add(book);
             }
 
