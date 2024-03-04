@@ -42,15 +42,15 @@ namespace Library
             set { author = value; }
         }
 
-        private Genre genre;
-        public Genre GenreBook
+        private Genre? genre;
+        public Genre? GenreBook
         {
             get { return genre; }
             set { genre = value; }
         }
 
-        private int publicationYear;
-        public int PublicationYear
+        private int? publicationYear;
+        public int? PublicationYear
         {
             get { return publicationYear; }
             set
@@ -66,8 +66,8 @@ namespace Library
             }
         }
 
-        private int pageCount;
-        public int PageCount
+        private int? pageCount;
+        public int? PageCount
         {
             get { return pageCount; }
             set
