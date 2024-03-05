@@ -1,5 +1,5 @@
 ﻿// Purpose: Main program file for the Library project.
-using static Library.Book;
+
 
 namespace Library
 {
@@ -9,7 +9,7 @@ namespace Library
         {
 
             Library myLibrary = new("My Library");
-           
+
 
             string filePath = "csv/books.csv";
 
@@ -42,7 +42,8 @@ namespace Library
                 switch (choice)
                 {
                     case 1:
-                        myLibrary.AddBook(CreateBookFromUserInput());
+                        Book newBook = CreateBookFromUserInput(myLibrary);
+                        myLibrary.AddBook(newBook);
                         break;
                     case 2:
                         System.Console.WriteLine("Enter the ISBN of the book you want to add info to: ");
@@ -55,7 +56,7 @@ namespace Library
                         myLibrary.SearchBookByISBN(isbn).ShowInfo();
                         break;
                     case 4:
-                        System.Console.WriteLine("Enter the Title of the book you want to search for: ");  
+                        System.Console.WriteLine("Enter the Title of the book you want to search for: ");
                         string title = Console.ReadLine();
                         var book = myLibrary.searchBookByTitle(title);
                         book.ShowInfo();
@@ -80,21 +81,28 @@ namespace Library
             }
 
         }
-        public static Book CreateBookFromUserInput()
+        public static Book CreateBookFromUserInput(Library library)
         {
             System.Console.WriteLine("Enter the title of the book: ");
             string title = Console.ReadLine();
+
             System.Console.WriteLine("Enter the author of the book: ");
             string author = Console.ReadLine();
-            System.Console.WriteLine("enter the library of the book: ");
-            Library library = new(Console.ReadLine());
-            Book book = new Book(title, author, library);
-            Console.WriteLine("Book added successfully.");
+
+            // Other book details (genre, publication year, etc.) can be handled similarly
+
+            // Create the new book instance with the provided information
+            Book book = new(title, author, library)
+            {
+                Library = library
+            };
+
+            System.Console.WriteLine("Book added successfully.");
             System.Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
             Console.Clear();
-            return book;
 
+            return book;
         }
 
     }
