@@ -13,7 +13,7 @@ namespace Library
 
             string filePath = "csv/books.csv";
 
-            List<Book> booksFromCsv = Book.DeserializeFromCSV(filePath);
+            List<Book> booksFromCsv = Book.DeserializeFromCSV(filePath, myLibrary);
 
             foreach (var book in booksFromCsv)
             {
@@ -42,32 +42,22 @@ namespace Library
                 switch (choice)
                 {
                     case 1:
-                        Book newBook = CreateBookFromUserInput(myLibrary);
-                        myLibrary.AddBook(newBook);
+
                         break;
                     case 2:
-                        System.Console.WriteLine("Enter the ISBN of the book you want to add info to: ");
-                        string isbnToAddInfo = Console.ReadLine();
-                        myLibrary.SearchBookByISBN(isbnToAddInfo).AddInfo();
+
                         break;
                     case 3:
-                        System.Console.WriteLine("Enter the ISBN of the book you want to see info of: ");
-                        string isbn = Console.ReadLine();
-                        myLibrary.SearchBookByISBN(isbn).ShowInfo();
+
                         break;
                     case 4:
-                        System.Console.WriteLine("Enter the Title of the book you want to search for: ");
-                        string title = Console.ReadLine();
-                        var book = myLibrary.searchBookByTitle(title);
-                        book.ShowInfo();
+
                         break;
                     case 5:
-                        System.Console.WriteLine("Enter the ISBN of the book you want to remove: ");
-                        string isbnToRemove = Console.ReadLine();
-                        myLibrary.RemoveBook(isbnToRemove);
+
                         break;
                     case 6:
-                        myLibrary.ShowAllBooks();
+
                         break;
                     case 7:
                         System.Console.WriteLine("Goodbye!");
@@ -81,29 +71,7 @@ namespace Library
             }
 
         }
-        public static Book CreateBookFromUserInput(Library library)
-        {
-            System.Console.WriteLine("Enter the title of the book: ");
-            string title = Console.ReadLine();
 
-            System.Console.WriteLine("Enter the author of the book: ");
-            string author = Console.ReadLine();
-
-            // Other book details (genre, publication year, etc.) can be handled similarly
-
-            // Create the new book instance with the provided information
-            Book book = new(title, author, library)
-            {
-                Library = library
-            };
-
-            System.Console.WriteLine("Book added successfully.");
-            System.Console.WriteLine("Press any key to continue.");
-            Console.ReadKey();
-            Console.Clear();
-
-            return book;
-        }
 
     }
 }

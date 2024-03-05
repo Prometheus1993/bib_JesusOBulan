@@ -115,74 +115,6 @@ namespace Library
 
         }
 
-        public Book(string title, string author, Genre genre, int publicationYear, string publisher, string language, int pageCount, string isbnNumber)
-        {
-            Title = title;
-            Author = author;
-            GenreBook = genre;
-            PublicationYear = publicationYear;
-            Publisher = publisher;
-            Language = language;
-            PageCount = pageCount;
-            IsbnNumber = isbnNumber;
-        }
-
-        public void AddInfo()
-        {
-            System.Console.WriteLine("what information would you like to add?");
-            System.Console.WriteLine("1. Title");
-            System.Console.WriteLine("2. Author");
-            System.Console.WriteLine("3. Genre");
-            System.Console.WriteLine("4. Publication Year");
-            System.Console.WriteLine("5. Publisher");
-            System.Console.WriteLine("6. Language");
-            System.Console.WriteLine("7. Page Count");
-            System.Console.WriteLine("8. ISBN");
-
-            int choice = int.Parse(Console.ReadLine());
-
-            switch (choice)
-            {
-                case 1:
-                    System.Console.WriteLine("Enter the title of the book: ");
-                    Title = Console.ReadLine();
-                    break;
-                case 2:
-                    System.Console.WriteLine("Enter the author of the book: ");
-                    Author = Console.ReadLine();
-                    break;
-                case 3:
-                    System.Console.WriteLine("Enter the genre of the book: ");
-                    GenreBook = (Genre)Enum.Parse(typeof(Genre), Console.ReadLine(), true);
-                    break;
-                case 4:
-                    System.Console.WriteLine("Enter the publication year of the book: ");
-                    PublicationYear = int.Parse(Console.ReadLine());
-                    break;
-                case 5:
-                    System.Console.WriteLine("Enter the publisher of the book: ");
-                    Publisher = Console.ReadLine();
-                    break;
-                case 6:
-                    System.Console.WriteLine("Enter the language of the book: ");
-                    Language = Console.ReadLine();
-                    break;
-                case 7:
-                    System.Console.WriteLine("Enter the page count of the book: ");
-                    PageCount = int.Parse(Console.ReadLine());
-                    break;
-                case 8:
-                    System.Console.WriteLine("Enter the ISBN of the book: ");
-                    IsbnNumber = Console.ReadLine();
-                    break;
-                default:
-                    System.Console.WriteLine("Invalid choice. Please enter a number between 1 and 8.");
-                    break;
-
-            }
-
-
-        }
 
         /// <summary>
         /// Displays the book information on the console.
@@ -218,34 +150,23 @@ namespace Library
 
         }
 
-        /// <summary>
-        /// Loads a list of books from a CSV file.
-        /// </summary>
-        /// <param name="filePath">The file path of the CSV to load books from.</param>
-        /// <returns>A list of Book objects loaded from the CSV file.</returns>
-        public static List<Book> DeserializeFromCSV(string filePath)
+
+        public static List<Book> DeserializeFromCSV(string csvFile, Library library)
         {
-            List<Book> books = new List<Book>();
+            var books = new List<Book>();
 
-            string[] lines = File.ReadAllLines(filePath);
-
-            // Skip the first line assuming it's a header and parse each line
-            foreach (string line in lines.Skip(1))
+            // Simplified CSV reading logic (assuming CSV format: Title,Author)
+            var lines = File.ReadAllLines(csvFile).Skip(1); // Skip header
+            foreach (var line in lines)
             {
-                // Split the line into fields
-                string[] fields = line.Split(',');
-                // Create a new Book object from the fields and add it to the list
-                Book book = new(
-                    fields[0], // title
-                    fields[1], // author
-                    (Genre)Enum.Parse(typeof(Genre), fields[2], true), // genre, case-insensitive parsing
-                    int.Parse(fields[3]), // publication year
-                    fields[4], // publisher
-                    fields[5], // language
-                    int.Parse(fields[6]), // page count
-                    fields[7]); // ISBN number;
-
-                books.Add(book);
+                var columns = line.Split(','); // Simple CSV parsing, might need adjustment for complex scenarios
+                if (columns.Length >= 2) // Basic validation
+                {
+                    string title = columns[0];
+                    string author = columns[1];
+                    // Create a new Book instance and associate it with the provided library
+                    books.Add(new Book(title, author, library));
+                }
             }
 
             return books;
@@ -257,29 +178,7 @@ namespace Library
         {
             Fiction,
             NonFiction,
-            Science,
-            History,
-            Fantasy,
-            Biography,
-            Mystery,
-            Thriller,
-            Romance,
-            YoungAdult,
-            Children,
-            ScienceFiction,
-            Horror,
-            SelfHelp,
-            Health,
-            Travel,
-            Art,
-            Cookbook,
-            Religion,
-            Poetry,
-            Journal,
-            Business,
-            Technology,
-            MagicalRealism,
-            HistoricalFiction
+
         }
     }
 }
