@@ -16,7 +16,7 @@ namespace Library
                 }
                 else
                 {
-                    throw new ArgumentException("ISBN-Number should only contain numeric characters and have a length of 13.");
+                    System.Console.WriteLine("ISBN-Number should only contain numeric characters and have a length of 13.");
                 }
             }
         }
@@ -29,7 +29,7 @@ namespace Library
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("The title cannot be empty");
+                    System.Console.WriteLine("The title cannot be empty");
                 }
                 title = value;
             }
@@ -61,7 +61,7 @@ namespace Library
                 }
                 else
                 {
-                    throw new ArgumentException("The publication year must be in the past.");
+                    System.Console.WriteLine("The publication year must be in the past.");
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace Library
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Page Count cannot be 0 or negative");
+                    System.Console.WriteLine("Page Count cannot be 0 or negative");
                 }
                 else
                 {

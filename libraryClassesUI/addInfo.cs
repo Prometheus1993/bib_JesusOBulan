@@ -3,9 +3,14 @@ using static Library.Book;
 // Purpose: Add information to a book in the library.
 namespace Library
 {
-    public class AddInfo(Library library)
+    public class AddInfo()
     {
-        private readonly Library myLibrary = library;
+        private readonly Library myLibrary;
+
+        public AddInfo(Library library) : this()
+        {
+            myLibrary = library;
+        }
 
         public void UpdateBookInfo()
         {
@@ -56,10 +61,10 @@ namespace Library
                             bookToUpdate.IsbnNumber = Console.ReadLine();
                             break;
                         case 7:
-                            
+
                             return;
                         default:
-                            Console.WriteLine("Invalid choice");
+                            System.Console.WriteLine("Invalid choice");
                             break;
                     }
                     Console.WriteLine("Book information updated successfully.");
@@ -68,7 +73,11 @@ namespace Library
             }
             else
             {
-                Console.WriteLine("Book not found.");
+                System.Console.WriteLine("Book not found.");
+                System.Console.WriteLine("Press any key to continue.");
+                Console.ReadKey();
+                Console.Clear();
+
             }
 
         }

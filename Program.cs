@@ -34,7 +34,14 @@ namespace Library
                 System.Console.WriteLine("5 - Remove a book from the library");
                 System.Console.WriteLine("6 - Show all books in the library");
                 System.Console.WriteLine("7 - Exit");
-                int choice = Convert.ToInt32(Console.ReadLine());
+                
+                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 7)
+                {
+                    System.Console.WriteLine("Invalid choice. Please enter a number between 1 and 7.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    continue;
+                }
                 Console.Clear();
 
                 switch (choice)

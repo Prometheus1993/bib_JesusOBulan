@@ -1,8 +1,13 @@
 namespace Library
 {
-    public class ShowAllBooks(Library library)
+    public class ShowAllBooks()
     {
-        private readonly Library myLibrary = library;
+        private readonly Library myLibrary;
+
+        public ShowAllBooks(Library library) : this()
+        {
+            myLibrary = library;
+        }
 
         public void ShowAllBooksInLibrary()
         {

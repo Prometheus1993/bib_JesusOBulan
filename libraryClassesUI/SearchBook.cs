@@ -1,6 +1,11 @@
 namespace Library{
-    public class Searchbook(Library library){
-        private readonly Library myLibrary = library;
+    public class Searchbook(){
+        private readonly Library myLibrary;
+
+        public Searchbook(Library library) : this()
+        {
+            myLibrary = library;
+        }
 
         public void SearchBookByTitle(){
             System.Console.WriteLine("Enter the title of the book you want to search for: ");

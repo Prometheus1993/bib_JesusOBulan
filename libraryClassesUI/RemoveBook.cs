@@ -1,8 +1,16 @@
-namespace Library{
-    public class RemoveBook(Library library){
-        private readonly Library myLibrary = library;
+namespace Library
+{
+    public class RemoveBook()
+    {
+        private readonly Library myLibrary;
 
-        public void RemoveBookFromLibrary(){
+        public RemoveBook(Library library) : this()
+        {
+            myLibrary = library;
+        }
+
+        public void RemoveBookFromLibrary()
+        {
             System.Console.WriteLine("Enter the title of the book you want to remove: ");
             string title = Console.ReadLine();
             Book book = myLibrary.Books.Find(book => book.Title == title);
