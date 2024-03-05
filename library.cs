@@ -1,5 +1,7 @@
 // Purpose: Represents a library.
 
+using static Library.Book;
+
 namespace Library
 {
     /// Represents a library.
@@ -36,65 +38,109 @@ namespace Library
         ///Methods
 
         /// Adds a book to the library.
-        /// <param name="book">The book to be added.</param>
+        /// <param name="book">The bok to be added.</param>
         public void AddBook(Book book)
         {
-            books.Add(book);
-            
+            // Add the new book to the collection
+            Books.Add(book);
+
+        }
+
+        public void AssignBookToLibrary(Book book)
+        {
+            book.Library = this;
         }
 
 
         /// Removes a book from the library based on its ISBN number.
         /// <param name="IsbnNumber">The ISBN number of the book to be removed.</param>
-        public Book RemoveBook(string ISBN)
+        public Book RemoveBook(string isbn)
         {
+            // Find the book by ISBN
+            Book book = Books.Find(book => book.IsbnNumber == isbn);
 
-            Book bookToRemove = books.Find(book => book.IsbnNumber == ISBN);
+            if (book != null)
+            {
+                // Remove the book if found
+                Books.Remove(book);
+                System.Console.WriteLine("Book removed!");
+            }
+            else
+            {
+                System.Console.WriteLine("Book not found.");
+            }
 
-            return bookToRemove;
+            // Return the removed book, or null if not found
+            return book;
         }
 
-
-        /// Searches for a book by its title and author.
-        /// <param name="Title">The title of the book.</param>
-        /// <param name="Author">The author of the book.</param>
-        public Book SearchBookByTitleAuthor(string Title, string Author)
+        public void ShowAllBooks()
         {
-            Book searchByTitleAuthor = books.Find(book => book.Title == Title && book.Author == Author);
+            if (books.Count == 0)
+            {
+                Console.WriteLine("The library is empty.");
+            }
+            else
+            {
+                foreach (var book in books)
+                {
+                    book.ShowInfo();
+                }
+            }
 
-            return searchByTitleAuthor;
         }
 
+            /// Searches for a book by its title and author.
+            /// <param name="Title">The title of the book.</param>
+            /// <param name="Author">The author of the book.</param>
+            public Book SearchBookByTitleAuthor(string Title, string Author)
+            {
+                Book searchByTitleAuthor = books.Find(book => book.Title == Title && book.Author == Author);
 
-        /// Searches for a book in the library by its ISBN number.
-        /// <param name="ISBN">The ISBN number of the book to search for.</param>
-        public Book SearchBookByISBN(string ISBN)
-        {
-            // Attempt to find a book with the specified ISBN
-            Book searchBookByISBN = books.Find(book => book.IsbnNumber == ISBN);
+                return searchByTitleAuthor;
+            }
 
-            // Return the found book (or null if no book was found)
-            return searchBookByISBN;
+            public Book searchBookByTitle(string title)
+            {
+                Book searchByTitle = books.Find(book => book.Title == title);
+
+                return searchByTitle;
+            }
+
+
+            /// Searches for a book in the library by its ISBN number.
+            /// <param name="ISBN">The ISBN number of the book to search for.</param>
+            public Book SearchBookByISBN(string ISBN)
+            {
+                // Attempt to find a book with the specified ISBN
+                Book searchBookByISBN = books.Find(book => book.IsbnNumber == ISBN);
+
+                // Return the found book (or null if no book was found)
+                return searchBookByISBN;
+            }
+
+
+            /// Searches for books by the specified author and displays the information of the found book.
+            /// <param name="author">The author to search for.</param>
+            public Book SearchBooksByAuthor(string author)
+            {
+                Book searchBookByAuthor = books.Find(book => book.Author == author);
+
+                return searchBookByAuthor;
+            }
+
+            public Book SearchBooksByPublisher(string publisher)
+            {
+                Book searchBooksByPublisher = (Book)books.Where(book => book.Publisher == publisher);
+
+                return searchBooksByPublisher;
+            }
+
+
         }
 
-
-        /// Searches for books by the specified author and displays the information of the found book.
-        /// <param name="author">The author to search for.</param>
-        public Book SearchBooksByAuthor(string author)
-        {
-            Book searchBookByAuthor = books.Find(book => book.Author == author);
-
-            return searchBookByAuthor;
-        }
-
-        public Book SearchBooksByPublisher(string publisher)
-        {
-            Book searchBooksByPublisher = (Book)books.Where(book => book.Publisher == publisher);
-
-            return searchBooksByPublisher;
-        }
     }
-}
+
 
 
 

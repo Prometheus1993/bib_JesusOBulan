@@ -111,7 +111,8 @@ namespace Library
         {
             Title = title; // Set the book's title
             Author = author; // Set the book's author
-            Library = library; // Associate the book with a specific library
+            Library = library; // Set the book's library
+
         }
 
         public Book(string title, string author, Genre genre, int publicationYear, string publisher, string language, int pageCount, string isbnNumber)
@@ -126,7 +127,62 @@ namespace Library
             IsbnNumber = isbnNumber;
         }
 
+        public void AddInfo()
+        {
+            System.Console.WriteLine("what information would you like to add?");
+            System.Console.WriteLine("1. Title");
+            System.Console.WriteLine("2. Author");
+            System.Console.WriteLine("3. Genre");
+            System.Console.WriteLine("4. Publication Year");
+            System.Console.WriteLine("5. Publisher");
+            System.Console.WriteLine("6. Language");
+            System.Console.WriteLine("7. Page Count");
+            System.Console.WriteLine("8. ISBN");
 
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    System.Console.WriteLine("Enter the title of the book: ");
+                    Title = Console.ReadLine();
+                    break;
+                case 2:
+                    System.Console.WriteLine("Enter the author of the book: ");
+                    Author = Console.ReadLine();
+                    break;
+                case 3:
+                    System.Console.WriteLine("Enter the genre of the book: ");
+                    GenreBook = (Genre)Enum.Parse(typeof(Genre), Console.ReadLine(), true);
+                    break;
+                case 4:
+                    System.Console.WriteLine("Enter the publication year of the book: ");
+                    PublicationYear = int.Parse(Console.ReadLine());
+                    break;
+                case 5:
+                    System.Console.WriteLine("Enter the publisher of the book: ");
+                    Publisher = Console.ReadLine();
+                    break;
+                case 6:
+                    System.Console.WriteLine("Enter the language of the book: ");
+                    Language = Console.ReadLine();
+                    break;
+                case 7:
+                    System.Console.WriteLine("Enter the page count of the book: ");
+                    PageCount = int.Parse(Console.ReadLine());
+                    break;
+                case 8:
+                    System.Console.WriteLine("Enter the ISBN of the book: ");
+                    IsbnNumber = Console.ReadLine();
+                    break;
+                default:
+                    System.Console.WriteLine("Invalid choice. Please enter a number between 1 and 8.");
+                    break;
+
+            }
+
+
+        }
 
         /// <summary>
         /// Displays the book information on the console.
