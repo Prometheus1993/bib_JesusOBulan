@@ -1,0 +1,51 @@
+
+
+namespace Library
+{
+    public enum Genre
+    {
+        Fiction,
+        NonFiction,
+        Fantasy,
+        Horror,
+        Romance,
+        Thriller,
+        Mystery,
+        Biography,
+        History,
+        Science,
+        ScienceFiction,
+        SelfHelp,
+        Poetry,
+        Travel,
+        Religion,
+        Health,
+        Cookbooks,
+        Art,
+        Music,
+        Childrens,
+        YoungAdult,
+        Comics,
+        GraphicNovels,
+        Manga,
+        Western,
+        Dystopian,
+        Paranormal,
+        UrbanFantasy,
+        Apocalyptic,
+        PostApocalyptic,
+        Steampunk,
+        Cyberpunk,
+        SpaceOpera,
+        MilitaryScienceFiction,
+        Superhero,
+        TimeTravel,
+        AlternateHistory,
+        HardScienceFiction,
+        SoftScienceFiction,
+        SocialScienceFiction,
+        SpeculativeFiction,
+        HistoricalFiction,
+        Literary
+    }
+}

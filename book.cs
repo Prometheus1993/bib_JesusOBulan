@@ -16,7 +16,7 @@ namespace Library
                 }
                 else
                 {
-                    System.Console.WriteLine("ISBN-Number should only contain numeric characters and have a length of 13.");
+                    System.Console.WriteLine("ISBN nummer moet 13 cijfers lang zijn.");
                 }
             }
         }
@@ -29,7 +29,7 @@ namespace Library
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    System.Console.WriteLine("The title cannot be empty");
+                    System.Console.WriteLine("Titel mag niet leeg zijn.");
                 }
                 title = value;
             }
@@ -42,15 +42,15 @@ namespace Library
             set { author = value; }
         }
 
-        private Genre? genre;
-        public Genre? GenreBook
+        private Genre genre;
+        public Genre GenreBook
         {
             get { return genre; }
             set { genre = value; }
         }
 
-        private int? publicationYear;
-        public int? PublicationYear
+        private int publicationYear;
+        public int PublicationYear
         {
             get { return publicationYear; }
             set
@@ -61,20 +61,20 @@ namespace Library
                 }
                 else
                 {
-                    System.Console.WriteLine("The publication year must be in the past.");
+                    System.Console.WriteLine("Publicatie jaar kan niet in de toekomst zijn.");
                 }
             }
         }
 
-        private int? pageCount;
-        public int? PageCount
+        private int pageCount;
+        public int PageCount
         {
             get { return pageCount; }
             set
             {
                 if (value <= 0)
                 {
-                    System.Console.WriteLine("Page Count cannot be 0 or negative");
+                    System.Console.WriteLine("Paginas kunnen niet 0 of minder zijn.");
                 }
                 else
                 {
@@ -116,41 +116,44 @@ namespace Library
         }
 
 
-        /// <summary>
-        /// Displays the book information on the console.
-        /// </summary>
+
         public void ShowInfo()
         {
             // Print the title of the book
-            System.Console.WriteLine($"Title: {Title}");
+            System.Console.WriteLine($"Titel: {Title}");
 
             // Print the author of the book
-            System.Console.WriteLine($"Author: {Author}");
+            System.Console.WriteLine($"Auteur: {Author}");
 
             // Print the genre of the book
             System.Console.WriteLine($"Genre: {GenreBook}");
 
             // Print the publication year of the book
-            System.Console.WriteLine($"Publication Year: {PublicationYear}");
+            System.Console.WriteLine($"Publicatie jaar: {PublicationYear}");
 
             // Print the publisher of the book
-            System.Console.WriteLine($"Publisher: {Publisher}");
+            System.Console.WriteLine($"Uitgeverij: {Publisher}");
 
             // Print the language of the book
-            System.Console.WriteLine($"Language: {Language}");
+            System.Console.WriteLine($"Taal: {Language}");
 
             // Print the page count of the book
-            System.Console.WriteLine($"Page Count: {PageCount}");
+            System.Console.WriteLine($"Paginas: {PageCount}");
 
             // Print the ISBN number of the book
             System.Console.WriteLine($"ISBN: {IsbnNumber}");
 
             // Print the library associated with the book (if applicable)
-            System.Console.WriteLine($"Library: {Library?.Name ?? "Unknown"}\n");
+            System.Console.WriteLine($"Bibliotheek: {Library.Name}");
 
         }
 
-
+        // Deserialize from CSV
+        /// <summary>
+        /// Deserializes a list of books from a CSV file.
+        /// </summary>
+        /// <param name="csvFile">The path to the CSV file.</param>
+        /// <param name="library">The library to associate the books with.</param>
         public static List<Book> DeserializeFromCSV(string csvFile, Library library)
         {
             var books = new List<Book>();
@@ -174,12 +177,7 @@ namespace Library
 
 
         //Genres
-        public enum Genre
-        {
-            Fiction,
-            NonFiction,
 
-        }
     }
 }
 

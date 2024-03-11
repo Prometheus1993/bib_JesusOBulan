@@ -20,7 +20,7 @@ namespace Library
         public List<Book> Books
         {
             get { return books; }
-            private set { books = value; } //Controle!!!
+            private set { books = value; } //private set so that the list of books can only be modified from within the class
         }
 
         ///Constructor
@@ -33,9 +33,6 @@ namespace Library
         }
 
         ///Methods
-
-        /// Adds a book to the library.
-        /// <param name="book">The book to be added.</param>
         public void AddBook(Book book)
         {
             // Add the new book to the collection
@@ -49,25 +46,20 @@ namespace Library
         }
 
 
-        /// Removes a book from the library based on its ISBN number.
-        /// <param name="IsbnNumber">The ISBN number of the book to be removed.</param>
+        // Removes a book from the library based on its ISBN number.
         public Book RemoveBook(string isbn)
         {
-            // Find the book by ISBN
-            Book book = Books.Find(book => book.IsbnNumber == isbn);
 
+            Book book = Books.Find(book => book.IsbnNumber == isbn);
             if (book != null)
             {
-                // Remove the book if found
                 Books.Remove(book);
-                System.Console.WriteLine("Book removed!");
+                System.Console.WriteLine("Boek verwijderd!");
             }
             else
             {
-                System.Console.WriteLine("Book not found.");
+                System.Console.WriteLine("Boek niet gevonden!");
             }
-
-            // Return the removed book, or null if not found
             return book;
         }
 
@@ -75,7 +67,7 @@ namespace Library
         {
             if (books.Count == 0)
             {
-                Console.WriteLine("The library is empty.");
+                Console.WriteLine("De Bibliotheek is leeg.");
             }
             else
             {
@@ -104,7 +96,7 @@ namespace Library
             return searchByTitle;
         }
 
-        
+
 
         /// Searches for a book in the library by its ISBN number.
         /// <param name="ISBN">The ISBN number of the book to search for.</param>
@@ -127,6 +119,7 @@ namespace Library
             return searchBookByAuthor;
         }
 
+
         public Book SearchBooksByPublisher(string publisher)
         {
             Book searchBooksByPublisher = (Book)books.Where(book => book.Publisher == publisher);
@@ -138,7 +131,7 @@ namespace Library
     }
 
 }
-    
+
 
 
 

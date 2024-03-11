@@ -22,17 +22,17 @@ namespace Library
 
             while (true)
             {
-                System.Console.WriteLine("1 - Add book to Library");
-                System.Console.WriteLine("2 - Add info to a book");
-                System.Console.WriteLine("3 - Show all information about a book");
-                System.Console.WriteLine("4 - Search for a book");
-                System.Console.WriteLine("5 - Remove a book from the library");
-                System.Console.WriteLine("6 - Show all books in the library");
-                System.Console.WriteLine("7 - Exit");
+                System.Console.WriteLine("1 - Voeg een boek toe aan de bibliotheek");
+                System.Console.WriteLine("2 - Voeg informatie toe aan een boek");
+                System.Console.WriteLine("3 - Toon informatie over een boek");
+                System.Console.WriteLine("4 - Zoek een boek in de bibliotheek");
+                System.Console.WriteLine("5 - Verwijder een boek uit de bibliotheek");
+                System.Console.WriteLine("6 - Toon alle boeken in de bibliotheek");
+                System.Console.WriteLine("7 - Verlaat de bibliotheek");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 7)
                 {
-                    System.Console.WriteLine("Invalid choice. Please enter a number between 1 and 7.");
+                    System.Console.WriteLine("Ongeldige keuze! Probeer opnieuw.");
                     Console.ReadKey();
                     Console.Clear();
                     continue;
@@ -60,7 +60,7 @@ namespace Library
 
                         break;
                     case 7:
-                        System.Console.WriteLine("Goodbye!");
+                        System.Console.WriteLine("Tot Ziens!");
                         Thread.Sleep(1000);
                         break;
                 }
