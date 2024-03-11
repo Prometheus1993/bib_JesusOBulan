@@ -14,14 +14,7 @@ namespace Library
             myLibrary = new("My Library");
 
 
-            string filePath = "csv/books.csv";
-
-            List<Book> booksFromCsv = Book.DeserializeFromCSV(filePath, myLibrary);
-
-            foreach (var book in booksFromCsv)
-            {
-                myLibrary.AddBook(book);
-            }
+          
 
             while (true)
             {

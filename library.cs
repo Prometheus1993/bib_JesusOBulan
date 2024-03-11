@@ -38,15 +38,10 @@ namespace Library
         {
             // Add the new book to the collection
             Books.Add(book);
-
-        }
-
-        public void AssignBookToLibrary(Book book)
-        {
             book.Library = this;
+
         }
-
-
+        
         // Removes a book from the library based on its ISBN number.
         public Book RemoveBook(string isbn)
         {
