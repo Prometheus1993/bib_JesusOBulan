@@ -15,7 +15,7 @@ namespace Library
         }
 
         private List<Book> books = new List<Book>();
-        
+
 
         // Gets or sets the list of books in the library.
         public List<Book> Books
@@ -41,7 +41,7 @@ namespace Library
             book.Library = this;
 
         }
-        
+
         // Removes a book from the library based on its ISBN number.
         public Book RemoveBook(string isbn)
         {

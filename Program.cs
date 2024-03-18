@@ -1,7 +1,9 @@
 ﻿// Purpose: Main program file for the Library project.
 
-
-namespace Library
+//WAT WHITESPACE VOORZIEN VOOR INFO!!!
+//MOET NIET ALTIJD DE  LIBRARY LATEN ZIEN MAG WEGGELATEN WORDEN!!!
+// VERWIJDERD BOEK NIET VAN DE LIJST NAKIJKEN!!!!! REMOVEBOOK() IN LIBRARY.CS
+namespace Library //namespace veranderen!!!!!
 {
     public class Program
     {
@@ -14,7 +16,14 @@ namespace Library
             myLibrary = new("My Library");
 
 
+            string filePath = "csv/books.csv";
           
+            List<Book> booksFromCsv = Book.DeserializeFromCSV(filePath, myLibrary);
+
+            foreach (var book in booksFromCsv)
+            {
+                myLibrary.AddBook(book);
+            }
 
             while (true)
             {
@@ -50,7 +59,7 @@ namespace Library
                         SearchForBook();
                         break;
                     case 5:
-                        RemoveBook();
+                        RemoveBook(); 
                         break;
                     case 6:
                         myLibrary.ShowAllBooks();

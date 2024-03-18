@@ -97,9 +97,9 @@ namespace Library
             set { publisher = value; }
         }
 
-        private Library library;
+        private Library library;// The library that the book is associated with
 
-        public Library Library
+        public Library Library 
         {
             get { return library; }
             set { library = value; }
@@ -176,7 +176,7 @@ namespace Library
         }
 
 
-        //Genres
+      
 
     }
 }
