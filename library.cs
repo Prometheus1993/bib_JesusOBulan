@@ -1,5 +1,5 @@
 // Purpose: Represents a library.
-namespace MijnProject
+namespace bib_JesusOBulan
 {
     /// Represents a library.
     public class Library
@@ -24,6 +24,14 @@ namespace MijnProject
             private set { books = value; } //private set so that the list of books can only be modified from within the class
         }
 
+        private Dictionary<NewsPaper, Magazine> allReadingRoom = new Dictionary<NewsPaper, Magazine>();
+        public Dictionary<NewsPaper, Magazine> AllReadingRoom
+        {
+            get { return allReadingRoom.ToDictionary(); }
+
+        }
+
+
         ///Constructor
 
         // Initializes a new instance of the Library class with the specified name.
@@ -39,7 +47,7 @@ namespace MijnProject
             // Add the new book to the collection
             Books.Add(book);
             book.Library = this;
-           
+
 
         }
 
@@ -60,10 +68,10 @@ namespace MijnProject
             return book;
         }
 
-             public Book RemoveBookOnTitle(string title)
+        public Book RemoveBookOnTitle(string title)
         {
 
-            Book book = Books.Find(book => book.Title  == title);
+            Book book = Books.Find(book => book.Title == title);
             if (book != null)
             {
                 Books.Remove(book);
@@ -76,10 +84,10 @@ namespace MijnProject
             return book;
         }
 
-            public Book RemoveBookOnAuthor(string author)
+        public Book RemoveBookOnAuthor(string author)
         {
 
-            Book book = Books.Find(book => book.Author  == author);
+            Book book = Books.Find(book => book.Author == author);
             if (book != null)
             {
                 Books.Remove(book);
@@ -91,7 +99,7 @@ namespace MijnProject
             }
             return book;
         }
-        
+
 
         public void ShowAllBooks()
         {
@@ -155,6 +163,64 @@ namespace MijnProject
             Book searchBooksByPublisher = (Book)books.Where(book => book.Publisher == publisher);
 
             return searchBooksByPublisher;
+        }
+
+        public void AddNewspaper()
+        {
+            System.Console.WriteLine("Wat is de naam van de krant?");
+            string title = Console.ReadLine();
+            System.Console.WriteLine("Wat is de datum van de krant?");
+            DateTime date = DateTime.Parse(Console.ReadLine());
+            System.Console.WriteLine("Wat is de uitgeverij van de krant?");
+            string publisher = Console.ReadLine();
+            NewsPaper newsPaper = new NewsPaper(title, publisher, date);
+            allReadingRoom.Add(newsPaper, null);
+        }
+
+        public void AddMagazine()
+        {
+            System.Console.WriteLine("Wat is de naam van het maandblad?");
+            string title = Console.ReadLine();
+            System.Console.WriteLine("Wat is de maand van het maandblad?");
+            byte month = byte.Parse(Console.ReadLine());
+            System.Console.WriteLine("Wat is het jaar van het maandblad?");
+            uint year = uint.Parse(Console.ReadLine());
+            System.Console.WriteLine("Wat is de uitgeverij van het maandblad?");
+            string publisher = Console.ReadLine();
+            Magazine magazine = new Magazine(title, publisher, month, year);
+            allReadingRoom.Add(null, magazine);
+        }
+
+        public void ShowAllMagazines()
+        {
+            foreach (var magazine in allReadingRoom.Values)
+            {
+                System.Console.WriteLine($"- {magazine.Title} van {magazine.Month}/{magazine.Year} van uitgeverij {magazine.Publisher}");
+
+            }
+        }
+
+        public void ShowAllNewspapers()
+        {
+            foreach (var newspaper in allReadingRoom.Keys)
+            {
+                System.Console.WriteLine($"- {newspaper.Title} van {newspaper.Date} van uitgeverij {newspaper.Publisher}");
+
+            }
+        }
+
+        public void AcquisitionsReadingRoomToday()
+        {
+            System.Console.WriteLine($"Aanwisten in de leeszaal van {DateTime.Now}");
+            foreach (var newspaper in allReadingRoom.Keys)
+            {
+                System.Console.WriteLine($"{newspaper.Title} met id {newspaper.Identification}");
+            }
+
+            foreach (var magazine in allReadingRoom.Values)
+            {
+                System.Console.WriteLine($"{magazine.Title} met id {magazine.Identification}");
+            }
         }
 
 

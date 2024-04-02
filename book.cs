@@ -1,5 +1,5 @@
 // Purpose: Contains the Book class and its properties, constructors, and methods.
-namespace MijnProject
+namespace bib_JesusOBulan
 {
     public class Book
     {

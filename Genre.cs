@@ -1,6 +1,6 @@
 
 
-namespace MijnProject
+namespace bib_JesusOBulan
 {
     public enum Genre
     {

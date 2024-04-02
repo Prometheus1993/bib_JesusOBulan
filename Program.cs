@@ -3,7 +3,8 @@
 
 
 
-namespace MijnProject {
+namespace bib_JesusOBulan
+{
     public class Program
     {
         private static Book newBook;
@@ -32,9 +33,14 @@ namespace MijnProject {
                 System.Console.WriteLine("4 - Zoek een boek in de bibliotheek");
                 System.Console.WriteLine("5 - Verwijder een boek uit de bibliotheek");
                 System.Console.WriteLine("6 - Toon alle boeken in de bibliotheek");
-                System.Console.WriteLine("7 - Verlaat de bibliotheek");
+                System.Console.WriteLine("7 - Voeg een krant toe aan de bibliotheek");
+                System.Console.WriteLine("8 - Voeg een magazine toe aan de bibliotheek");
+                System.Console.WriteLine("9 - Toon alle kranten in de bibliotheek");
+                System.Console.WriteLine("10 - Toon alle magazines in de bibliotheek");
+                System.Console.WriteLine("11 - Bekijk nieuwe aanwinsten van de leeszaal");
+                System.Console.WriteLine("12 - Verlaat de bibliotheek");
 
-                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 7)
+                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 12)
                 {
                     System.Console.WriteLine("Ongeldige keuze! Probeer opnieuw.");
                     Console.ReadKey();
@@ -64,11 +70,26 @@ namespace MijnProject {
                         myLibrary.ShowAllBooks();
                         break;
                     case 7:
+                        myLibrary.AddNewspaper();
+                        break;
+                    case 8:
+                        myLibrary.AddMagazine();
+                        break;
+                    case 9:
+                        myLibrary.ShowAllMagazines();
+                        break;
+                    case 10:
+                        myLibrary.ShowAllNewspapers();
+                        break;
+                    case 11:
+                        myLibrary.AcquisitionsReadingRoomToday();
+                        break;
+                    case 12:
                         System.Console.WriteLine("Tot Ziens!");
                         Thread.Sleep(1000);
                         break;
                 }
-                if (choice == 7)
+                if (choice == 12)
                 {
                     break;
                 }
@@ -90,7 +111,7 @@ namespace MijnProject {
             newBook = new Book(title, author, myLibrary);
             myLibrary.AddBook(newBook);
             Console.Clear();
-             System.Console.WriteLine("Boek toegevoegd!\n");
+            System.Console.WriteLine("Boek toegevoegd!\n");
         }
         // Add information to a book
         static void AddInfoToBook()
@@ -312,7 +333,7 @@ namespace MijnProject {
             {
                 case 1:
                     System.Console.WriteLine("Geef de ISBN van het boek in:");
-                    string isbnSearch = Console.ReadLine();        
+                    string isbnSearch = Console.ReadLine();
                     myLibrary.RemoveBookOnIsbn(isbnSearch);
                     break;
                 case 2:
@@ -327,6 +348,8 @@ namespace MijnProject {
                     break;
             }
         }
+
+
 
     }
 }
