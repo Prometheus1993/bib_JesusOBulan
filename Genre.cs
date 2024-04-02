@@ -1,6 +1,6 @@
 
 
-namespace Library
+namespace MijnProject
 {
     public enum Genre
     {

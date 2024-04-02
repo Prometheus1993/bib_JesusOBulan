@@ -1,10 +1,9 @@
 ﻿// Purpose: Main program file for the Library project.
 
-//WAT WHITESPACE VOORZIEN VOOR INFO!!!
-//MOET NIET ALTIJD DE  LIBRARY LATEN ZIEN MAG WEGGELATEN WORDEN!!!
-// VERWIJDERD BOEK NIET VAN DE LIJST NAKIJKEN!!!!! REMOVEBOOK() IN LIBRARY.CS
-namespace Library //namespace veranderen!!!!!
-{
+
+
+
+namespace MijnProject {
     public class Program
     {
         private static Book newBook;
@@ -17,7 +16,7 @@ namespace Library //namespace veranderen!!!!!
 
 
             string filePath = "csv/books.csv";
-          
+
             List<Book> booksFromCsv = Book.DeserializeFromCSV(filePath, myLibrary);
 
             foreach (var book in booksFromCsv)
@@ -59,7 +58,7 @@ namespace Library //namespace veranderen!!!!!
                         SearchForBook();
                         break;
                     case 5:
-                        RemoveBook(); 
+                        RemoveBook();
                         break;
                     case 6:
                         myLibrary.ShowAllBooks();
@@ -83,13 +82,15 @@ namespace Library //namespace veranderen!!!!!
         static void Addbook()
         {
 
-            System.Console.WriteLine("Voeg een boek toe aan de bibliotheek");
+            System.Console.WriteLine("Voeg een boek toe aan de bibliotheek\n");
             System.Console.WriteLine("Geef de titel van het boek in:");
             string title = Console.ReadLine();
-            System.Console.WriteLine("Geef de auteur van het boek in:");
+            System.Console.WriteLine("\nGeef de auteur van het boek in:");
             string author = Console.ReadLine();
             newBook = new Book(title, author, myLibrary);
             myLibrary.AddBook(newBook);
+            Console.Clear();
+             System.Console.WriteLine("Boek toegevoegd!\n");
         }
         // Add information to a book
         static void AddInfoToBook()
@@ -311,34 +312,18 @@ namespace Library //namespace veranderen!!!!!
             {
                 case 1:
                     System.Console.WriteLine("Geef de ISBN van het boek in:");
-                    string isbnSearch = Console.ReadLine();
-                    myLibrary.RemoveBook(isbnSearch);
+                    string isbnSearch = Console.ReadLine();        
+                    myLibrary.RemoveBookOnIsbn(isbnSearch);
                     break;
                 case 2:
                     System.Console.WriteLine("Geef de titel van het boek in:");
                     string searchTitle = Console.ReadLine();
-                    Book bookTitle = myLibrary.SearchBookByTitle(searchTitle);
-                    if (bookTitle != null)
-                    {
-                        myLibrary.RemoveBook(bookTitle.IsbnNumber);
-                    }
-                    else
-                    {
-                        System.Console.WriteLine("Boek niet gevonden!");
-                    }
+                    myLibrary.RemoveBookOnTitle(searchTitle);
                     break;
                 case 3:
                     System.Console.WriteLine("Geef de auteur van het boek in:");
                     string searchAuthor = Console.ReadLine();
-                    Book bookAuthor = myLibrary.SearchBooksByAuthor(searchAuthor);
-                    if (bookAuthor != null)
-                    {
-                        myLibrary.RemoveBook(bookAuthor.IsbnNumber);
-                    }
-                    else
-                    {
-                        System.Console.WriteLine("Boek niet gevonden!");
-                    }
+                    myLibrary.RemoveBookOnAuthor(searchAuthor);
                     break;
             }
         }

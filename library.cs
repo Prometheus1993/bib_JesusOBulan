@@ -1,5 +1,5 @@
 // Purpose: Represents a library.
-namespace Library
+namespace MijnProject
 {
     /// Represents a library.
     public class Library
@@ -39,11 +39,12 @@ namespace Library
             // Add the new book to the collection
             Books.Add(book);
             book.Library = this;
+           
 
         }
 
         // Removes a book from the library based on its ISBN number.
-        public Book RemoveBook(string isbn)
+        public Book RemoveBookOnIsbn(string isbn)
         {
 
             Book book = Books.Find(book => book.IsbnNumber == isbn);
@@ -58,6 +59,39 @@ namespace Library
             }
             return book;
         }
+
+             public Book RemoveBookOnTitle(string title)
+        {
+
+            Book book = Books.Find(book => book.Title  == title);
+            if (book != null)
+            {
+                Books.Remove(book);
+                System.Console.WriteLine("Boek verwijderd!");
+            }
+            else
+            {
+                System.Console.WriteLine("Boek niet gevonden!");
+            }
+            return book;
+        }
+
+            public Book RemoveBookOnAuthor(string author)
+        {
+
+            Book book = Books.Find(book => book.Author  == author);
+            if (book != null)
+            {
+                Books.Remove(book);
+                System.Console.WriteLine("Boek verwijderd!");
+            }
+            else
+            {
+                System.Console.WriteLine("Boek niet gevonden!");
+            }
+            return book;
+        }
+        
 
         public void ShowAllBooks()
         {

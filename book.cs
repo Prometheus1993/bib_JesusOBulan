@@ -1,5 +1,5 @@
 // Purpose: Contains the Book class and its properties, constructors, and methods.
-namespace Library
+namespace MijnProject
 {
     public class Book
     {
@@ -105,6 +105,8 @@ namespace Library
             set { library = value; }
         }
 
+        public string BookTitle { get; }
+
         /// Constructors
 
         public Book(string title, string author, Library library)
@@ -115,7 +117,10 @@ namespace Library
 
         }
 
-
+        public Book(string bookTitle)
+        {
+            BookTitle = bookTitle;
+        }
 
         public void ShowInfo()
         {
@@ -141,10 +146,9 @@ namespace Library
             System.Console.WriteLine($"Paginas: {PageCount}");
 
             // Print the ISBN number of the book
-            System.Console.WriteLine($"ISBN: {IsbnNumber}");
+            System.Console.WriteLine($"ISBN: {IsbnNumber}\n");
 
-            // Print the library associated with the book (if applicable)
-            System.Console.WriteLine($"Bibliotheek: {Library.Name}");
+        
 
         }
 
