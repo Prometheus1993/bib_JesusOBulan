@@ -1,4 +1,6 @@
 // Purpose: Represents a library.
+using System.Globalization;
+
 namespace bib_JesusOBulan
 {
     /// Represents a library.
@@ -24,12 +26,12 @@ namespace bib_JesusOBulan
             private set { books = value; } //private set so that the list of books can only be modified from within the class
         }
 
-        private Dictionary<NewsPaper, Magazine> allReadingRoom = new Dictionary<NewsPaper, Magazine>();
-        public Dictionary<NewsPaper, Magazine> AllReadingRoom
+        private readonly Dictionary<DateTime, ReadingRoomItem> allReadingRoomItems = new Dictionary<DateTime, ReadingRoomItem>();
+        public Dictionary<DateTime, ReadingRoomItem> AllReadingRoomItems
         {
-            get { return allReadingRoom.ToDictionary(); }
-
+            get { return allReadingRoomItems.ToDictionary(); }
         }
+
 
 
         ///Constructor
@@ -174,7 +176,12 @@ namespace bib_JesusOBulan
             System.Console.WriteLine("Wat is de uitgeverij van de krant?");
             string publisher = Console.ReadLine();
             NewsPaper newsPaper = new NewsPaper(title, publisher, date);
-            allReadingRoom.Add(newsPaper, null);
+
+            DateTime creationTime = DateTime.Now;
+
+            allReadingRoomItems.Add(creationTime, newsPaper);
+
+            System.Console.WriteLine("Krant succesvol toegevoegd aan de leeszaal.");
         }
 
         public void AddMagazine()
@@ -188,39 +195,50 @@ namespace bib_JesusOBulan
             System.Console.WriteLine("Wat is de uitgeverij van het maandblad?");
             string publisher = Console.ReadLine();
             Magazine magazine = new Magazine(title, publisher, month, year);
-            allReadingRoom.Add(null, magazine);
+            DateTime creationTime = DateTime.Now;
+
+            allReadingRoomItems.Add(creationTime, magazine);
+
+            System.Console.WriteLine("Maandblad succesvol toegevoegd aan de leeszaal.");
         }
+
 
         public void ShowAllMagazines()
         {
-            foreach (var magazine in allReadingRoom.Values)
+            System.Console.WriteLine("Alle maandbladen uit de leeszaal:");
+            foreach (var item in allReadingRoomItems.Values)
             {
-                System.Console.WriteLine($"- {magazine.Title} van {magazine.Month}/{magazine.Year} van uitgeverij {magazine.Publisher}");
-
+                if (item is Magazine magazine)
+                {
+                    System.Console.WriteLine($"- {magazine.Title} van {magazine.Month}/{magazine.Year} van uitgeverij {magazine.Publisher}\n");
+                }
             }
         }
 
         public void ShowAllNewspapers()
         {
-            foreach (var newspaper in allReadingRoom.Keys)
+            System.Console.WriteLine("Alle kranten uit de leeszaal:");
+            foreach (var item in allReadingRoomItems.Values)
             {
-                System.Console.WriteLine($"- {newspaper.Title} van {newspaper.Date} van uitgeverij {newspaper.Publisher}");
-
+                if (item is NewsPaper newspaper) // Pattern matching om te controleren of het item een NewsPaper is
+                {
+                    // De variabele 'newspaper' wordt hier gebruikt en zou in deze context bekend moeten zijn
+                    string formattedDate = newspaper.Date.ToString("dddd d MMMM yyyy", new CultureInfo("nl-NL"));
+                    System.Console.WriteLine($"- {newspaper.Title} van {formattedDate} van uitgeverij {newspaper.Publisher}\n");
+                }
             }
         }
 
+
         public void AcquisitionsReadingRoomToday()
         {
-            System.Console.WriteLine($"Aanwisten in de leeszaal van {DateTime.Now}");
-            foreach (var newspaper in allReadingRoom.Keys)
+            System.Console.WriteLine($"Aanwisten in de leeszaal van {DateTime.Now}\n");
+            foreach (var item in allReadingRoomItems.Values)
             {
-                System.Console.WriteLine($"{newspaper.Title} met id {newspaper.Identification}");
+                System.Console.WriteLine($"{item.Title} met id {item.Identification}");
             }
 
-            foreach (var magazine in allReadingRoom.Values)
-            {
-                System.Console.WriteLine($"{magazine.Title} met id {magazine.Identification}");
-            }
+
         }
 
 
