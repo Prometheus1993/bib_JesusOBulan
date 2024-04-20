@@ -76,10 +76,10 @@ namespace bib_JesusOBulan
                         myLibrary.AddMagazine();
                         break;
                     case 9:
-                        myLibrary.ShowAllMagazines();
+                        myLibrary.ShowAllNewspapers();
                         break;
                     case 10:
-                        myLibrary.ShowAllNewspapers();
+                        myLibrary.ShowAllMagazines();
                         break;
                     case 11:
                         myLibrary.AcquisitionsReadingRoomToday();
