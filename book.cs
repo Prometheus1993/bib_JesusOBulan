@@ -1,8 +1,10 @@
 // Purpose: Contains the Book class and its properties, constructors, and methods.
 namespace bib_JesusOBulan
 {
-    public class Book
+    public class Book : ILendable
     {
+
+
         /// Properties
         private string isbnNumber;
         public string IsbnNumber
@@ -42,11 +44,16 @@ namespace bib_JesusOBulan
             set { author = value; }
         }
 
-        private Genre genre;
+        // Gebruik een private field voor GenreBook met een public property die BorrowDays update.
+        private Genre genreBook;
         public Genre GenreBook
         {
-            get { return genre; }
-            set { genre = value; }
+            get { return genreBook; }
+            set
+            {
+                genreBook = value;
+                UpdateBorrowDays(); // Update BorrowDays elke keer dat het genre verandert
+            }
         }
 
         private int publicationYear;
@@ -61,7 +68,7 @@ namespace bib_JesusOBulan
                 }
                 else
                 {
-                    
+
                     throw new InvalidBookPropertyException("Publicatie jaar mag niet in de toekomst liggen.");
                 }
             }
@@ -108,13 +115,35 @@ namespace bib_JesusOBulan
 
         public string BookTitle { get; }
 
+        /// interface Ilendable
+
+        public bool IsAvailable { get; set; }
+        public DateTime BorrowingDate { get; set; }
+        private int borrowDays;
+        public int BorrowDays
+        {
+            get { return borrowDays; }
+            set { SetBorrowDays(value); }
+        }
+
+
         /// Constructors
 
-        public Book(string title, string author, Library library)
+        public Book(string title, string author, Library library, Genre genre)
         {
             Title = title; // Set the book's title
             Author = author; // Set the book's author
             Library = library; // Set the book's library
+            GenreBook = genre; // Set the book's genre
+            this.IsAvailable = true;
+            if (genre == Genre.Schoolboek)
+            {
+                this.BorrowDays = 10;
+            }
+            else
+            {
+                this.BorrowDays = 20;
+            }
 
         }
 
@@ -123,34 +152,44 @@ namespace bib_JesusOBulan
             BookTitle = bookTitle;
         }
 
+        public void Borrow()
+        {
+            if (IsAvailable)
+            {
+                IsAvailable = false;
+                BorrowingDate = DateTime.Now;
+                DateTime dueDate = BorrowingDate.AddDays(BorrowDays);
+                Console.WriteLine($"Boek '{Title}' is uitgeleend. Het moet teruggebracht worden op {dueDate.ToShortDateString()}.");
+            }
+            else
+            {
+                Console.WriteLine($"Het boek '{Title}' is momenteel niet beschikbaar voor uitlening.");
+            }
+        }
+
+        public void Return()
+        {
+            IsAvailable = true;
+            Console.WriteLine($"Het boek '{Title}' is teruggebracht. Dank u!");
+        }
+
         public void ShowInfo()
         {
-            // Print the title of the book
-            System.Console.WriteLine($"Titel: {Title}");
-
-            // Print the author of the book
-            System.Console.WriteLine($"Auteur: {Author}");
-
-            // Print the genre of the book
-            System.Console.WriteLine($"Genre: {GenreBook}");
-
-            // Print the publication year of the book
-            System.Console.WriteLine($"Publicatie jaar: {PublicationYear}");
-
-            // Print the publisher of the book
-            System.Console.WriteLine($"Uitgeverij: {Publisher}");
-
-            // Print the language of the book
-            System.Console.WriteLine($"Taal: {Language}");
-
-            // Print the page count of the book
-            System.Console.WriteLine($"Paginas: {PageCount}");
-
-            // Print the ISBN number of the book
-            System.Console.WriteLine($"ISBN: {IsbnNumber}\n");
-
-
-
+            if (IsAvailable)
+            {
+                Console.WriteLine($"Titel: {Title}");
+                Console.WriteLine($"Auteur: {Author}");
+                Console.WriteLine($"Genre: {GenreBook}");
+                Console.WriteLine($"Publicatie jaar: {PublicationYear}");
+                Console.WriteLine($"Uitgeverij: {Publisher}");
+                Console.WriteLine($"Taal: {Language}");
+                Console.WriteLine($"Paginas: {PageCount}");
+                Console.WriteLine($"ISBN: {IsbnNumber}\n");
+            }
+            else
+            {
+                System.Console.WriteLine("Het boek is niet beschikbaar.");
+            }
         }
 
         // Deserialize from CSV
@@ -173,11 +212,28 @@ namespace bib_JesusOBulan
                     string title = columns[0];
                     string author = columns[1];
                     // Create a new Book instance and associate it with the provided library
-                    books.Add(new Book(title, author, library));
+                    books.Add(new Book(title, author, library, Genre.Fiction));
                 }
             }
 
             return books;
+        }
+
+        private void UpdateBorrowDays()
+        {
+            if (GenreBook == Genre.Schoolboek)
+            {
+                BorrowDays = 10;
+            }
+            else
+            {
+                BorrowDays = 20;
+            }
+        }
+
+        private void SetBorrowDays(int days)
+        {
+            borrowDays = days;
         }
     }
 }

@@ -113,10 +113,33 @@ namespace bib_JesusOBulan
             {
                 foreach (var book in books)
                 {
-                    book.ShowInfo();
+                    if (book.IsAvailable)
+                    {
+                        book.ShowInfo();
+                    }
+
                 }
             }
 
+        }
+
+        public void ShowAllBooksTitles()
+        {
+            foreach (Book book in books)
+            {
+                System.Console.WriteLine($"Titel: {book.Title}");
+            }
+        }
+
+        public void ShowBorrowedBooks()
+        {
+            foreach (Book book in books)
+            {
+                if (!book.IsAvailable) // Toon alleen boeken die niet beschikbaar zijn
+                {
+                    System.Console.WriteLine($"Titel: {book.Title}");
+                }
+            }
         }
 
         /// Searches for a book by its title and author.
@@ -228,6 +251,8 @@ namespace bib_JesusOBulan
                 }
             }
         }
+
+
 
 
         public void AcquisitionsReadingRoomToday()

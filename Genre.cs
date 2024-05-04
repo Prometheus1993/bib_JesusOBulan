@@ -46,6 +46,7 @@ namespace bib_JesusOBulan
         SocialScienceFiction,
         SpeculativeFiction,
         HistoricalFiction,
-        Literary
+        Literary,
+        Schoolboek
     }
 }

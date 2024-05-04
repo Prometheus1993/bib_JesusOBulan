@@ -5,4 +5,5 @@ internal interface ILendable
     DateTime BorrowingDate { get; set; }
     int BorrowDays { get; set; }
     void Borrow();
+    void Return();
 }

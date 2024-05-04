@@ -38,9 +38,11 @@ namespace bib_JesusOBulan
                 System.Console.WriteLine("9 - Toon alle kranten in de bibliotheek");
                 System.Console.WriteLine("10 - Toon alle magazines in de bibliotheek");
                 System.Console.WriteLine("11 - Bekijk nieuwe aanwinsten van de leeszaal");
-                System.Console.WriteLine("12 - Verlaat de bibliotheek");
+                System.Console.WriteLine("12 - Leen een boek");
+                System.Console.WriteLine("13 - breng een boek terug");
+                System.Console.WriteLine("14 - Verlaat de bibliotheek");
 
-                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 12)
+                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 14)
                 {
                     System.Console.WriteLine("Ongeldige keuze! Probeer opnieuw.");
                     Console.ReadKey();
@@ -85,11 +87,17 @@ namespace bib_JesusOBulan
                         myLibrary.AcquisitionsReadingRoomToday();
                         break;
                     case 12:
+                        BorrowBook();
+                        break;
+                    case 13:
+                        ReturnBook();
+                        break;
+                    case 14:
                         System.Console.WriteLine("Tot Ziens!");
                         Thread.Sleep(1000);
                         break;
                 }
-                if (choice == 12)
+                if (choice == 14)
                 {
                     break;
                 }
@@ -110,7 +118,7 @@ namespace bib_JesusOBulan
                 System.Console.WriteLine("\nGeef de auteur van het boek in:");
                 string author = Console.ReadLine();
 
-                newBook = new Book(title, author, myLibrary); // Aannemende dat de constructor of properties exceptions kunnen gooien
+                newBook = new Book(title, author, myLibrary, Genre.Schoolboek);
                 myLibrary.AddBook(newBook);
                 Console.Clear();
                 System.Console.WriteLine("Boek toegevoegd!\n");
@@ -394,6 +402,49 @@ namespace bib_JesusOBulan
                     break;
             }
 
+        }
+
+        static void BorrowBook()
+        {
+            System.Console.WriteLine("Welke Boek zou je willen lenen?");
+            myLibrary.ShowAllBooksTitles();
+
+            System.Console.WriteLine("Voer de titel van het boek in dat je wilt lenen:");
+            string title = System.Console.ReadLine();
+
+            // Zoek het boek op titel
+            Book bookToBorrow = myLibrary.SearchBookByTitle(title);
+
+            if (bookToBorrow != null && bookToBorrow.IsAvailable)
+            {
+                bookToBorrow.Borrow();
+                System.Console.WriteLine($"Je hebt '{title}' geleend. Zorg dat je het op tijd terugbrengt!");
+            }
+            else
+            {
+                System.Console.WriteLine("Boek is niet beschikbaar of bestaat niet.");
+            }
+        }
+        static void ReturnBook()
+        {
+            System.Console.WriteLine("Welk boek wil je terugbrengen?");
+            myLibrary.ShowBorrowedBooks();
+
+            System.Console.WriteLine("Voer de titel van het boek in dat je wilt terugbrengen:");
+            string title = System.Console.ReadLine();
+
+            // Zoek het boek op titel
+            Book bookToReturn = myLibrary.SearchBookByTitle(title);
+
+            if (bookToReturn != null && !bookToReturn.IsAvailable) // Controleer of het boek uitgeleend is
+            {
+                bookToReturn.Return();
+                System.Console.WriteLine($"Je hebt het boek '{title}' succesvol teruggebracht. Bedankt!");
+            }
+            else
+            {
+                System.Console.WriteLine("Dit boek is niet uitgeleend of bestaat niet in onze bibliotheek.");
+            }
         }
     }
 }
