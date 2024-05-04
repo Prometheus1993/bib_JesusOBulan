@@ -102,27 +102,44 @@ namespace bib_JesusOBulan
         // Add a book to the library
         static void Addbook()
         {
+            try
+            {
+                System.Console.WriteLine("Voeg een boek toe aan de bibliotheek\n");
+                System.Console.WriteLine("Geef de titel van het boek in:");
+                string title = Console.ReadLine();
+                System.Console.WriteLine("\nGeef de auteur van het boek in:");
+                string author = Console.ReadLine();
 
-            System.Console.WriteLine("Voeg een boek toe aan de bibliotheek\n");
-            System.Console.WriteLine("Geef de titel van het boek in:");
-            string title = Console.ReadLine();
-            System.Console.WriteLine("\nGeef de auteur van het boek in:");
-            string author = Console.ReadLine();
-            newBook = new Book(title, author, myLibrary);
-            myLibrary.AddBook(newBook);
-            Console.Clear();
-            System.Console.WriteLine("Boek toegevoegd!\n");
+                newBook = new Book(title, author, myLibrary); // Aannemende dat de constructor of properties exceptions kunnen gooien
+                myLibrary.AddBook(newBook);
+                Console.Clear();
+                System.Console.WriteLine("Boek toegevoegd!\n");
+            }
+            catch (InvalidBookPropertyException bex)
+            {
+                System.Console.WriteLine($"Fout bij het toevoegen van het boek: {bex.Message}");
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine($"Een onverwachte fout is opgetreden: {ex.Message}");
+                Console.ReadKey();
+            }
         }
         // Add information to a book
         static void AddInfoToBook()
         {
-            System.Console.WriteLine("Geef de titel van het boek in:");
-            string titleInfo = Console.ReadLine();
-            System.Console.WriteLine("Geef de auteur van het boek in:");
-            string authorInfo = Console.ReadLine();
-            Book bookInfo = myLibrary.SearchBookByTitleAuthor(titleInfo, authorInfo);
-            if (bookInfo != null)
+            try
             {
+                System.Console.WriteLine("Geef de titel van het boek in:");
+                string titleInfo = Console.ReadLine();
+                System.Console.WriteLine("Geef de auteur van het boek in:");
+                string authorInfo = Console.ReadLine();
+                Book bookInfo = myLibrary.SearchBookByTitleAuthor(titleInfo, authorInfo);
+
+                if (bookInfo == null)
+                    throw new BookNotFoundException("Boek niet gevonden!");
+
                 int choiceInfo = 0;
                 while (choiceInfo != 7)
                 {
@@ -139,35 +156,53 @@ namespace bib_JesusOBulan
                         System.Console.WriteLine("Ongeldige keuze! Probeer opnieuw.");
                         Console.ReadKey();
                         Console.Clear();
-                        return;
+                        continue;
                     }
                     Console.Clear();
+
                     switch (choiceInfo)
                     {
                         case 1:
                             System.Console.WriteLine("Geef de ISBN van het boek in:");
                             string newIsbn = Console.ReadLine();
                             bookInfo.IsbnNumber = newIsbn;
+                            System.Console.WriteLine("ISBN bijgewerkt!");
                             break;
                         case 2:
                             System.Console.WriteLine("Geef het publicatie jaar van het boek in:");
-                            int publicationYear = int.Parse(Console.ReadLine());
-                            bookInfo.PublicationYear = publicationYear;
+                            if (int.TryParse(Console.ReadLine(), out int publicationYear))
+                            {
+                                bookInfo.PublicationYear = publicationYear;
+                                System.Console.WriteLine("Publicatiejaar bijgewerkt!");
+                            }
+                            else
+                            {
+                                System.Console.WriteLine("Ongeldige invoer voor het publicatie jaar.");
+                            }
                             break;
                         case 3:
                             System.Console.WriteLine("Geef het aantal pagina's van het boek in:");
-                            int pageCount = int.Parse(Console.ReadLine());
-                            bookInfo.PageCount = pageCount;
+                            if (int.TryParse(Console.ReadLine(), out int pageCount))
+                            {
+                                bookInfo.PageCount = pageCount;
+                                System.Console.WriteLine("Aantal pagina's bijgewerkt!");
+                            }
+                            else
+                            {
+                                System.Console.WriteLine("Ongeldige invoer voor pagina's.");
+                            }
                             break;
                         case 4:
                             System.Console.WriteLine("Geef de taal van het boek in:");
                             string language = Console.ReadLine();
                             bookInfo.Language = language;
+                            System.Console.WriteLine("Taal bijgewerkt!");
                             break;
                         case 5:
                             System.Console.WriteLine("Geef de uitgever van het boek in:");
                             string publisher = Console.ReadLine();
                             bookInfo.Publisher = publisher;
+                            System.Console.WriteLine("Uitgever bijgewerkt!");
                             break;
                         case 6:
                             System.Console.WriteLine("Geef het genre van het boek in:");
@@ -175,25 +210,35 @@ namespace bib_JesusOBulan
                             if (Enum.TryParse(genreInput, out Genre genre))
                             {
                                 bookInfo.GenreBook = genre;
+                                System.Console.WriteLine("Genre bijgewerkt!");
                             }
                             else
                             {
                                 System.Console.WriteLine("Ongeldig genre! Probeer opnieuw.");
-                                Console.ReadKey();
-                                Console.Clear();
-                                return;
                             }
                             break;
                         case 7:
+                            System.Console.WriteLine("Terugkeren naar hoofdmenu.");
                             break;
                     }
                 }
             }
-            else
+            catch (BookNotFoundException bex)
             {
-                System.Console.WriteLine("Boek niet gevonden!");
+                System.Console.WriteLine(bex.Message);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine($"Een onverwachte fout is opgetreden: {ex.Message}");
+                Console.ReadKey();
+            }
+            finally
+            {
+                Console.Clear();
             }
         }
+
 
         // Show information of a book
         static void ShowInfoOfBook()
@@ -316,6 +361,7 @@ namespace bib_JesusOBulan
         // Remove a book from the library
         static void RemoveBook()
         {
+
             System.Console.WriteLine("Op welke manier wil je zoeken?");
             System.Console.WriteLine("1 - ISBN");
             System.Console.WriteLine("2 - Titel");
@@ -347,9 +393,7 @@ namespace bib_JesusOBulan
                     myLibrary.RemoveBookOnAuthor(searchAuthor);
                     break;
             }
+
         }
-
-
-
     }
 }

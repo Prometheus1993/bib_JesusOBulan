@@ -36,7 +36,6 @@ public class Magazine : ReadingRoomItem
         }
     }
 
-    //NAZIEN
     public override string Identification
     {
         get

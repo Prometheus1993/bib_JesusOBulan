@@ -16,7 +16,7 @@ namespace bib_JesusOBulan
                 }
                 else
                 {
-                    System.Console.WriteLine("ISBN nummer moet 13 cijfers lang zijn.");
+                    throw new InvalidBookPropertyException("ISBN nummer moet 13 cijfers bevatten.");
                 }
             }
         }
@@ -29,7 +29,7 @@ namespace bib_JesusOBulan
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    System.Console.WriteLine("Titel mag niet leeg zijn.");
+                    throw new InvalidBookPropertyException("Titel mag niet leeg zijn.");
                 }
                 title = value;
             }
@@ -61,7 +61,8 @@ namespace bib_JesusOBulan
                 }
                 else
                 {
-                    System.Console.WriteLine("Publicatie jaar kan niet in de toekomst zijn.");
+                    
+                    throw new InvalidBookPropertyException("Publicatie jaar mag niet in de toekomst liggen.");
                 }
             }
         }
@@ -74,7 +75,7 @@ namespace bib_JesusOBulan
             {
                 if (value <= 0)
                 {
-                    System.Console.WriteLine("Paginas kunnen niet 0 of minder zijn.");
+                    throw new InvalidBookPropertyException("Pagina's moet groter zijn dan 0.");
                 }
                 else
                 {
@@ -99,7 +100,7 @@ namespace bib_JesusOBulan
 
         private Library library;// The library that the book is associated with
 
-        public Library Library 
+        public Library Library
         {
             get { return library; }
             set { library = value; }
@@ -148,7 +149,7 @@ namespace bib_JesusOBulan
             // Print the ISBN number of the book
             System.Console.WriteLine($"ISBN: {IsbnNumber}\n");
 
-        
+
 
         }
 
@@ -178,10 +179,6 @@ namespace bib_JesusOBulan
 
             return books;
         }
-
-
-      
-
     }
 }
 

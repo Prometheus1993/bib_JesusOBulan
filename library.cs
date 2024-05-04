@@ -179,7 +179,7 @@ namespace bib_JesusOBulan
 
             DateTime creationTime = DateTime.Now;
 
-            allReadingRoomItems.Add(creationTime, newsPaper);
+            AllReadingRoomItems.Add(creationTime, newsPaper);
 
             System.Console.WriteLine("Krant succesvol toegevoegd aan de leeszaal.");
         }
@@ -197,7 +197,7 @@ namespace bib_JesusOBulan
             Magazine magazine = new Magazine(title, publisher, month, year);
             DateTime creationTime = DateTime.Now;
 
-            allReadingRoomItems.Add(creationTime, magazine);
+            AllReadingRoomItems.Add(creationTime, magazine);
 
             System.Console.WriteLine("Maandblad succesvol toegevoegd aan de leeszaal.");
         }
