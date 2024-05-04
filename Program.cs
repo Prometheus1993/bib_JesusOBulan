@@ -33,10 +33,10 @@ namespace bib_JesusOBulan
                 System.Console.WriteLine("4 - Zoek een boek in de bibliotheek");
                 System.Console.WriteLine("5 - Verwijder een boek uit de bibliotheek");
                 System.Console.WriteLine("6 - Toon alle boeken in de bibliotheek");
-                System.Console.WriteLine("7 - Voeg een krant toe aan de bibliotheek");
-                System.Console.WriteLine("8 - Voeg een magazine toe aan de bibliotheek");
-                System.Console.WriteLine("9 - Toon alle kranten in de bibliotheek");
-                System.Console.WriteLine("10 - Toon alle magazines in de bibliotheek");
+                System.Console.WriteLine("7 - Voeg een krant toe aan de leeszaal");
+                System.Console.WriteLine("8 - Voeg een magazine toe aan de leeszaal");
+                System.Console.WriteLine("9 - Toon alle kranten in de leeszaal");
+                System.Console.WriteLine("10 - Toon alle magazines in de leeszaal");
                 System.Console.WriteLine("11 - Bekijk nieuwe aanwinsten van de leeszaal");
                 System.Console.WriteLine("12 - Leen een boek");
                 System.Console.WriteLine("13 - breng een boek terug");
@@ -70,6 +70,8 @@ namespace bib_JesusOBulan
                         break;
                     case 6:
                         myLibrary.ShowAllBooks();
+                        Console.ReadKey();
+                        Console.Clear();
                         break;
                     case 7:
                         myLibrary.AddNewspaper();
@@ -120,8 +122,10 @@ namespace bib_JesusOBulan
 
                 newBook = new Book(title, author, myLibrary, Genre.Schoolboek);
                 myLibrary.AddBook(newBook);
-                Console.Clear();
+
                 System.Console.WriteLine("Boek toegevoegd!\n");
+                Console.ReadKey();
+                Console.Clear();
             }
             catch (InvalidBookPropertyException bex)
             {
@@ -277,6 +281,7 @@ namespace bib_JesusOBulan
                     else
                     {
                         System.Console.WriteLine("Boek niet gevonden!");
+                        Console.ReadKey();
                     }
                     break;
                 case 2:
@@ -290,6 +295,7 @@ namespace bib_JesusOBulan
                     else
                     {
                         System.Console.WriteLine("Boek niet gevonden!");
+                        Console.ReadKey();
                     }
                     break;
                 case 3:
@@ -303,9 +309,11 @@ namespace bib_JesusOBulan
                     else
                     {
                         System.Console.WriteLine("Boek niet gevonden!");
+                        Console.ReadKey();
                     }
                     break;
             }
+            Console.Clear();
         }
         // Search for a book
         static void SearchForBook()
@@ -336,6 +344,7 @@ namespace bib_JesusOBulan
                     else
                     {
                         System.Console.WriteLine("Boek niet gevonden!");
+                        Console.ReadKey();
                     }
                     break;
                 case 2:
@@ -349,6 +358,7 @@ namespace bib_JesusOBulan
                     else
                     {
                         System.Console.WriteLine("Boek niet gevonden!");
+                        Console.ReadKey();
                     }
                     break;
                 case 3:
@@ -362,9 +372,11 @@ namespace bib_JesusOBulan
                     else
                     {
                         System.Console.WriteLine("Boek niet gevonden!");
+                        Console.ReadKey();
                     }
                     break;
             }
+            Console.Clear();
         }
         // Remove a book from the library
         static void RemoveBook()
@@ -401,6 +413,7 @@ namespace bib_JesusOBulan
                     myLibrary.RemoveBookOnAuthor(searchAuthor);
                     break;
             }
+            Console.Clear();
 
         }
 
@@ -408,8 +421,6 @@ namespace bib_JesusOBulan
         {
             System.Console.WriteLine("Welke Boek zou je willen lenen?");
             myLibrary.ShowAllBooksTitles();
-
-            System.Console.WriteLine("Voer de titel van het boek in dat je wilt lenen:");
             string title = System.Console.ReadLine();
 
             // Zoek het boek op titel
@@ -418,12 +429,14 @@ namespace bib_JesusOBulan
             if (bookToBorrow != null && bookToBorrow.IsAvailable)
             {
                 bookToBorrow.Borrow();
-                System.Console.WriteLine($"Je hebt '{title}' geleend. Zorg dat je het op tijd terugbrengt!");
+                Console.ReadKey();
             }
             else
             {
                 System.Console.WriteLine("Boek is niet beschikbaar of bestaat niet.");
+                Console.ReadKey();
             }
+            Console.Clear();
         }
         static void ReturnBook()
         {
@@ -439,12 +452,14 @@ namespace bib_JesusOBulan
             if (bookToReturn != null && !bookToReturn.IsAvailable) // Controleer of het boek uitgeleend is
             {
                 bookToReturn.Return();
-                System.Console.WriteLine($"Je hebt het boek '{title}' succesvol teruggebracht. Bedankt!");
+                Console.ReadKey();
             }
             else
             {
                 System.Console.WriteLine("Dit boek is niet uitgeleend of bestaat niet in onze bibliotheek.");
+                Console.ReadKey();
             }
+            Console.Clear();
         }
     }
 }

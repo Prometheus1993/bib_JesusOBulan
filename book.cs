@@ -185,10 +185,12 @@ namespace bib_JesusOBulan
                 Console.WriteLine($"Taal: {Language}");
                 Console.WriteLine($"Paginas: {PageCount}");
                 Console.WriteLine($"ISBN: {IsbnNumber}\n");
+                Console.ReadKey();
             }
             else
             {
                 System.Console.WriteLine("Het boek is niet beschikbaar.");
+                Console.ReadKey();
             }
         }
 

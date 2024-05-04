@@ -62,10 +62,12 @@ namespace bib_JesusOBulan
             {
                 Books.Remove(book);
                 System.Console.WriteLine("Boek verwijderd!");
+                Console.ReadKey();
             }
             else
             {
                 System.Console.WriteLine("Boek niet gevonden!");
+                Console.ReadKey();
             }
             return book;
         }
@@ -78,10 +80,12 @@ namespace bib_JesusOBulan
             {
                 Books.Remove(book);
                 System.Console.WriteLine("Boek verwijderd!");
+                Console.ReadKey();
             }
             else
             {
                 System.Console.WriteLine("Boek niet gevonden!");
+                Console.ReadKey();
             }
             return book;
         }
@@ -117,10 +121,8 @@ namespace bib_JesusOBulan
                     {
                         book.ShowInfo();
                     }
-
                 }
             }
-
         }
 
         public void ShowAllBooksTitles()
@@ -202,9 +204,11 @@ namespace bib_JesusOBulan
 
             DateTime creationTime = DateTime.Now;
 
-            AllReadingRoomItems.Add(creationTime, newsPaper);
+            allReadingRoomItems.Add(creationTime, newsPaper);
 
             System.Console.WriteLine("Krant succesvol toegevoegd aan de leeszaal.");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         public void AddMagazine()
@@ -220,28 +224,34 @@ namespace bib_JesusOBulan
             Magazine magazine = new Magazine(title, publisher, month, year);
             DateTime creationTime = DateTime.Now;
 
-            AllReadingRoomItems.Add(creationTime, magazine);
+            allReadingRoomItems.Add(creationTime, magazine);
 
             System.Console.WriteLine("Maandblad succesvol toegevoegd aan de leeszaal.");
+            Console.ReadKey();
+            Console.Clear();
         }
 
 
         public void ShowAllMagazines()
         {
             System.Console.WriteLine("Alle maandbladen uit de leeszaal:");
-            foreach (var item in allReadingRoomItems.Values)
+            foreach (var item in AllReadingRoomItems.Values)
             {
                 if (item is Magazine magazine)
                 {
                     System.Console.WriteLine($"- {magazine.Title} van {magazine.Month}/{magazine.Year} van uitgeverij {magazine.Publisher}\n");
                 }
             }
+
+            Console.ReadKey();
+            Console.Clear();
+
         }
 
         public void ShowAllNewspapers()
         {
             System.Console.WriteLine("Alle kranten uit de leeszaal:");
-            foreach (var item in allReadingRoomItems.Values)
+            foreach (var item in AllReadingRoomItems.Values)
             {
                 if (item is NewsPaper newspaper) // Pattern matching om te controleren of het item een NewsPaper is
                 {
@@ -250,10 +260,10 @@ namespace bib_JesusOBulan
                     System.Console.WriteLine($"- {newspaper.Title} van {formattedDate} van uitgeverij {newspaper.Publisher}\n");
                 }
             }
+            Console.ReadKey();
+            Console.Clear();
+
         }
-
-
-
 
         public void AcquisitionsReadingRoomToday()
         {
@@ -262,9 +272,10 @@ namespace bib_JesusOBulan
             {
                 System.Console.WriteLine($"{item.Title} met id {item.Identification}");
             }
-
-
+            Console.ReadKey();
+            Console.Clear();
         }
+
 
 
     }
