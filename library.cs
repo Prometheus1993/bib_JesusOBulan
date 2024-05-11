@@ -1,5 +1,6 @@
 // Purpose: Represents a library.
 using System.Globalization;
+using System.Collections.Immutable;
 
 namespace bib_JesusOBulan
 {
@@ -26,11 +27,8 @@ namespace bib_JesusOBulan
             private set { books = value; } //private set so that the list of books can only be modified from within the class
         }
 
-        private readonly Dictionary<DateTime, ReadingRoomItem> allReadingRoomItems = new Dictionary<DateTime, ReadingRoomItem>();
-        public Dictionary<DateTime, ReadingRoomItem> AllReadingRoomItems
-        {
-            get { return allReadingRoomItems.ToDictionary(); }
-        }
+        private ImmutableDictionary<DateTime, ReadingRoomItem> allReadingRoomItems;
+        public ImmutableDictionary<DateTime, ReadingRoomItem> AllReadingRoomItems => allReadingRoomItems;
 
 
 
@@ -41,6 +39,7 @@ namespace bib_JesusOBulan
         public Library(string name)
         {
             Name = name;
+            allReadingRoomItems = ImmutableDictionary<DateTime, ReadingRoomItem>.Empty;
         }
 
         ///Methods
@@ -194,19 +193,23 @@ namespace bib_JesusOBulan
 
         public void AddNewspaper()
         {
-            System.Console.WriteLine("Wat is de naam van de krant?");
+            Console.WriteLine("Wat is de naam van de krant?");
             string title = Console.ReadLine();
-            System.Console.WriteLine("Wat is de datum van de krant?");
-            DateTime date = DateTime.Parse(Console.ReadLine());
-            System.Console.WriteLine("Wat is de uitgeverij van de krant?");
+            Console.WriteLine("Wat is de datum van de krant?");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime date))
+            {
+                Console.WriteLine("Ongeldige datum.");
+                Console.ReadKey();
+                return;
+            }
+            Console.WriteLine("Wat is de uitgeverij van de krant?");
             string publisher = Console.ReadLine();
             NewsPaper newsPaper = new NewsPaper(title, publisher, date);
-
             DateTime creationTime = DateTime.Now;
 
-            allReadingRoomItems.Add(creationTime, newsPaper);
+            allReadingRoomItems = AllReadingRoomItems.Add(creationTime, newsPaper);
 
-            System.Console.WriteLine("Krant succesvol toegevoegd aan de leeszaal.");
+            Console.WriteLine("Krant succesvol toegevoegd aan de leeszaal.");
             Console.ReadKey();
             Console.Clear();
         }
@@ -224,7 +227,7 @@ namespace bib_JesusOBulan
             Magazine magazine = new Magazine(title, publisher, month, year);
             DateTime creationTime = DateTime.Now;
 
-            allReadingRoomItems.Add(creationTime, magazine);
+             allReadingRoomItems = AllReadingRoomItems.Add(creationTime, magazine);
 
             System.Console.WriteLine("Maandblad succesvol toegevoegd aan de leeszaal.");
             Console.ReadKey();
@@ -235,7 +238,7 @@ namespace bib_JesusOBulan
         public void ShowAllMagazines()
         {
             System.Console.WriteLine("Alle maandbladen uit de leeszaal:");
-            foreach (var item in AllReadingRoomItems.Values)
+            foreach (var item in allReadingRoomItems.Values)
             {
                 if (item is Magazine magazine)
                 {
@@ -251,7 +254,7 @@ namespace bib_JesusOBulan
         public void ShowAllNewspapers()
         {
             System.Console.WriteLine("Alle kranten uit de leeszaal:");
-            foreach (var item in AllReadingRoomItems.Values)
+            foreach (var item in allReadingRoomItems.Values)
             {
                 if (item is NewsPaper newspaper) // Pattern matching om te controleren of het item een NewsPaper is
                 {

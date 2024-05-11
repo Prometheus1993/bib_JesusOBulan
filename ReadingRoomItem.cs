@@ -17,7 +17,7 @@ public abstract class ReadingRoomItem
     }
 
     //Nachecken
-    private readonly string identification;
+    private string identification;
     public abstract string Identification
     {
         get;

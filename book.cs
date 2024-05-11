@@ -129,14 +129,14 @@ namespace bib_JesusOBulan
 
         /// Constructors
 
-        public Book(string title, string author, Library library, Genre genre)
+        public Book(string title, string author, Library library, Genre genreBook)
         {
             Title = title; // Set the book's title
             Author = author; // Set the book's author
             Library = library; // Set the book's library
-            GenreBook = genre; // Set the book's genre
+            GenreBook = genreBook; // Set the book's genre
             this.IsAvailable = true;
-            if (genre == Genre.Schoolboek)
+            if (GenreBook == Genre.Schoolboek)
             {
                 this.BorrowDays = 10;
             }
